@@ -1,6 +1,6 @@
 {
   "name": "react-tmw-universe-authentication-utils",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "React package that provides authentication utilities for TMW Universe projects",
   "main": "index.js",
   "scripts": {
@@ -13,13 +13,13 @@
   "keywords": [
     "TMW Universe"
   ],
-  "author": "TMW-Universe",
+  "author": "",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/TMW-Universe/react-tmw-universe-authentication-utils/issues"
   },
   "homepage": "https://github.com/TMW-Universe/react-tmw-universe-authentication-utils#readme",
   "publishConfig": {
-    "@TMW-Universe:registry": "https://npm.pkg.github.com/@TMW-Universe"
+    "registry": "https://npm.pkg.github.com/@TMW-Universe"
   }
 }
