@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/TMW-Universe/react-tmw-universe-authentication-utils#readme",
   "publishConfig": {
-    "@TheMineWay:registry": "https://npm.pkg.github.com"
+    "@TMW-Universe:registry": "https://npm.pkg.github.com"
   }
 }
