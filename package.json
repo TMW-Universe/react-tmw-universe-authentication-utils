@@ -1,15 +1,20 @@
 {
   "name": "@tmw-universe/react-tmw-universe-authentication-utils",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "React package that provides authentication utilities for TMW Universe projects",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc ./src/** --outDir dist"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/@TMW-Universe"
+  },
+  "devDependencies": {
+    "typescript": "^5.1.6"
   }
 }
