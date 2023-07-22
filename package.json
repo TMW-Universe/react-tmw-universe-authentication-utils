@@ -1,6 +1,6 @@
 {
   "name": "@tmw-universe/react-tmw-universe-authentication-utils",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "React package that provides authentication utilities for TMW Universe projects",
   "main": "index.js",
   "scripts": {
