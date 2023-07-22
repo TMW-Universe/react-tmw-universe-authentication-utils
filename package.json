@@ -1,6 +1,6 @@
 {
   "name": "react-tmw-universe-authentication-utils",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "React package that provides authentication utilities for TMW Universe projects",
   "main": "index.js",
   "scripts": {
@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/TMW-Universe/react-tmw-universe-authentication-utils#readme",
   "publishConfig": {
-    "@TMW-Universe:registry": "https://npm.pkg.github.com"
+    "@TMW-Universe:registry": "https://npm.pkg.github.com/@TMW-Universe"
   }
 }
