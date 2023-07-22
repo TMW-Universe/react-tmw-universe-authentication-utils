@@ -1,6 +1,6 @@
 {
   "name": "@tmw-universe/react-tmw-universe-authentication-utils",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "React package that provides authentication utilities for TMW Universe projects",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,5 +16,8 @@
   },
   "devDependencies": {
     "typescript": "^5.1.6"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }

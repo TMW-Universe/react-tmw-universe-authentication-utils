@@ -18,7 +18,6 @@ jobs:
           scope: "@TMW-Universe"
       - run: npm install
       - run: npm run build
-      - run: cd dist
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
