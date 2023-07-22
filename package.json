@@ -1,12 +1,12 @@
 {
   "name": "@tmw-universe/react-tmw-universe-authentication-utils",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "React package that provides authentication utilities for TMW Universe projects",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc ./src/** --outDir dist"
+    "build": "tsc ./src/** --outDir dist --target es5 --declaration --strict --esModuleInterop --emitDeclarationOnly --declarationMap --allowJs & tsc ./src/** --outDir dist"
   },
   "keywords": [],
   "author": "",
