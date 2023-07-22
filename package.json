@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/TMW-Universe/react-tmw-universe-authentication-utils/issues"
   },
-  "homepage": "https://github.com/TMW-Universe/react-tmw-universe-authentication-utils#readme"
+  "homepage": "https://github.com/TMW-Universe/react-tmw-universe-authentication-utils#readme",
+  "publishConfig": {
+    "@TheMineWay:registry": "https://npm.pkg.github.com"
+  }
 }
