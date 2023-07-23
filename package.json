@@ -1,6 +1,6 @@
 {
   "name": "@tmw-universe/react-tmw-universe-authentication-utils",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "React package that provides authentication utilities for TMW Universe projects",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,5 +17,9 @@
   "files": [
     "dist",
     "dist/**"
-  ]
+  ],
+  "dependencies": {
+    "@azure/msal-browser": "^2.38.0",
+    "@azure/msal-react": "^1.5.9"
+  }
 }
