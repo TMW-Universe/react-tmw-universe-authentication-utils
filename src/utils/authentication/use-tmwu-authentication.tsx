@@ -32,6 +32,10 @@ export const useTmwuAuthentication = () => {
   const getActiveAccount = () => msalInstance.getActiveAccount();
   const setActiveAccount = (account: AccountInfo | null) =>
     msalInstance.setActiveAccount(account);
+  const getInactiveAccounts = () =>
+    getAllAccounts().filter(
+      (account) => account.homeAccountId !== getActiveAccount()?.homeAccountId
+    );
 
   return {
     login,
@@ -39,5 +43,6 @@ export const useTmwuAuthentication = () => {
     getAllAccounts,
     getActiveAccount,
     setActiveAccount,
+    getInactiveAccounts,
   };
 };
