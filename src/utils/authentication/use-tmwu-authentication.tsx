@@ -17,13 +17,8 @@ export const useTmwuAuthentication = () => {
     redirectUri,
   }: LoginOptions) => {
     const result = await msalInstance.loginPopup({
-      scopes: scopes ?? [
-        AuthenticationPermissionScopes.USER_READ,
-        `https://graph.microsoft.com/.default`,
-        "offline_access",
-      ],
+      scopes: scopes ?? [AuthenticationPermissionScopes.USER_READ],
       redirectUri,
-      prompt: "select_account",
     });
     if (doSetActiveAccount !== false) setActiveAccount(result.account);
 
