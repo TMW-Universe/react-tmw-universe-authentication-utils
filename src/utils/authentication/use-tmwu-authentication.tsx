@@ -17,8 +17,13 @@ export const useTmwuAuthentication = () => {
     redirectUri,
   }: LoginOptions) => {
     const result = await msalInstance.loginPopup({
-      scopes: scopes ?? [AuthenticationPermissionScopes.USER_READ],
+      scopes: scopes ?? [
+        AuthenticationPermissionScopes.USER_READ,
+        `https://graph.microsoft.com/.default`,
+        "offline_access",
+      ],
       redirectUri,
+      prompt: "select_account",
     });
     if (doSetActiveAccount !== false) setActiveAccount(result.account);
 
@@ -26,7 +31,7 @@ export const useTmwuAuthentication = () => {
     if (result.account) {
       try {
         await acquireToken(result.account);
-      } catch(e) {
+      } catch (e) {
         // If fail, keep going without token
       }
     }
@@ -38,13 +43,19 @@ export const useTmwuAuthentication = () => {
     return await msalInstance.logout();
   };
 
-  const acquireToken = async (account: AccountInfo, request?: Partial<SilentRequest>) => {
+  const acquireToken = async (
+    account: AccountInfo,
+    request?: Partial<SilentRequest>
+  ) => {
     const accessTokenRequest = {
       scopes: ["user.read"],
       account: account,
     };
-    return await msalInstance.acquireTokenSilent({ ...accessTokenRequest, ...request });
-  }
+    return await msalInstance.acquireTokenSilent({
+      ...accessTokenRequest,
+      ...request,
+    });
+  };
 
   const getAllAccounts = () => msalInstance.getAllAccounts();
   const getActiveAccount = () => msalInstance.getActiveAccount();
