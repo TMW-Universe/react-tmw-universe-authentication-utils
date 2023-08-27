@@ -1,6 +1,6 @@
 import { useMsal } from "@azure/msal-react";
 import { AuthenticationPermissionScopes } from "../../types/authentication/authentication-permission-scopes.enum";
-import { AccountInfo } from "@azure/msal-browser";
+import { AccountInfo, SilentRequest } from "@azure/msal-browser";
 
 type LoginOptions = {
   setActiveAccount?: boolean;
@@ -21,12 +21,30 @@ export const useTmwuAuthentication = () => {
       redirectUri,
     });
     if (doSetActiveAccount !== false) setActiveAccount(result.account);
+
+    // If there is an account, try to get the auth token
+    if (result.account) {
+      try {
+        await acquireToken(result.account);
+      } catch(e) {
+        // If fail, keep going without token
+      }
+    }
+
     return result;
   };
 
   const logout = async () => {
     return await msalInstance.logout();
   };
+
+  const acquireToken = async (account: AccountInfo, request?: Partial<SilentRequest>) => {
+    const accessTokenRequest = {
+      scopes: ["user.read"],
+      account: account,
+    };
+    return await msalInstance.acquireTokenSilent({ ...accessTokenRequest, ...request });
+  }
 
   const getAllAccounts = () => msalInstance.getAllAccounts();
   const getActiveAccount = () => msalInstance.getActiveAccount();
@@ -40,6 +58,7 @@ export const useTmwuAuthentication = () => {
   return {
     login,
     logout,
+    acquireToken,
     getAllAccounts,
     getActiveAccount,
     setActiveAccount,
