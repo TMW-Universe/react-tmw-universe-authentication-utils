@@ -16,9 +16,17 @@ export function RequireAccessTokenComponent({
     accessToken,
   } = useTmwuAccounts();
 
-  useEffect(() => {
+  const fetchToken = async () => {
     if (activeAccount) acquireToken(activeAccount);
+  };
+
+  useEffect(() => {
+    fetchToken();
   }, [activeAccount]);
+
+  useEffect(() => {
+    fetchToken();
+  }, []);
 
   if (!accessToken) return waitingForToken ?? null;
 
