@@ -11,6 +11,8 @@ export function useTmwuAccounts() {
 
   const inactiveAccounts = getInactiveAccounts();
 
+  const accessToken = activeAccount.idToken;
+
   return {
     accounts,
     activeAccount,
@@ -18,5 +20,6 @@ export function useTmwuAccounts() {
     inactiveAccounts,
     tmwuAuthentication,
     msalInstance,
+    accessToken,
   };
 }
