@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect } from "react";
 import React from "react";
 import AuthenticationRoute from "../components/authentication-route";
 import { LoginOptions } from "../types/auth/login-options.type";
+import TmwuCredentialsProvider from "./tmwu-credentials.provider";
 
 export type TmwuAuthProviderType = TmwuAuthOptions & {
   loginOptions?: LoginOptions;
@@ -45,7 +46,11 @@ export default function TmwuAuthProvider({ children, options }: Props) {
 
   return (
     <TmwuAuthContext.Provider value={options}>
-      {isAuthenticationRoute ? <AuthenticationRoute /> : children}
+      {isAuthenticationRoute ? (
+        <AuthenticationRoute />
+      ) : (
+        <TmwuCredentialsProvider>{children}</TmwuCredentialsProvider>
+      )}
     </TmwuAuthContext.Provider>
   );
 }

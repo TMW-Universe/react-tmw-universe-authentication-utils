@@ -1,9 +1,12 @@
 import { AES, enc } from "crypto-js";
 import { useTmwuAuthProvider } from "../providers/tmwu-auth.provider";
 import { LoginOptions } from "../types/auth/login-options.type";
+import { useState } from "react";
 
 export function useTmwuAuthentication() {
   const { host, loginOptions } = useTmwuAuthProvider();
+
+  const [isAuthPopupOpen, setAuthPopupOpen] = useState(false);
 
   function generateKey(length: number) {
     let result = "";
@@ -35,6 +38,7 @@ export function useTmwuAuthentication() {
   }
 
   const login = async (options?: LoginOptions) => {
+    setAuthPopupOpen(true);
     const key = generateKey(128);
     const url = `${host}/third-party/authenticate/v1/${window.location.host}?encKey=${key}`;
     const authPopup =
@@ -46,7 +50,7 @@ export function useTmwuAuthentication() {
             "toolbar=no,scrollbars=no,location=no,statusbar=no,menubar=no,resizable=0,width=600,height=800,left=800,top=500"
           );
 
-    return await new Promise<string | null>((resolve) => {
+    const res = await new Promise<string | null>((resolve) => {
       const interval = setInterval(() => {
         try {
           if (!authPopup?.closed) return;
@@ -59,6 +63,7 @@ export function useTmwuAuthentication() {
             const token = AES.decrypt(hexToString(rawToken), key).toString(
               enc.Utf8
             );
+            localStorage.setItem("tmwuAccessToken", token);
             resolve(token);
           }
         } catch (e) {
@@ -67,9 +72,17 @@ export function useTmwuAuthentication() {
         }
       }, 500);
     });
+    setAuthPopupOpen(false);
+    return res;
+  };
+
+  const logout = () => {
+    localStorage.removeItem("tmwuAccessToken");
   };
 
   return {
     login,
+    logout,
+    isAuthenticating: isAuthPopupOpen,
   };
 }
