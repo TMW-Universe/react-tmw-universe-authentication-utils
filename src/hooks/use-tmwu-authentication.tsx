@@ -36,7 +36,7 @@ export function useTmwuAuthentication() {
 
   const login = async (options?: LoginOptions) => {
     const key = generateKey(128);
-    const url = `${host}/third-party-authenticate/v1/${window.location.host}?encKey=${key}`;
+    const url = `${host}/third-party/authenticate/v1/${window.location.host}?encKey=${key}`;
     const authPopup =
       (loginOptions?.mode ?? options?.mode) === "newtab"
         ? window.open(url, "_blank")
