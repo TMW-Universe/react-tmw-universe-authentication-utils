@@ -25,7 +25,10 @@ export default function TmwuAuthProvider({ children, options }: Props) {
   const url = location.protocol + "//" + location.host + location.pathname;
   const isAuthenticationRoute =
     url ===
-    window.location.host + "/_authentication/third-party-authenticate/v1";
+    location.protocol +
+      "//" +
+      window.location.host +
+      "/_authentication/third-party-authenticate/v1";
 
   useEffect(() => {
     if (isAuthenticationRoute) {
