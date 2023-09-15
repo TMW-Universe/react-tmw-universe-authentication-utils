@@ -74,7 +74,10 @@ export default function TmwuCredentialsProvider({ children }: Props) {
 
   // Try to update profile every time accessToken changes
   useEffect(() => {
-    if (credentials?.accessToken) {
+    if (
+      credentials?.accessToken &&
+      credentials.accessToken !== readCredentialsToken()?.accessToken
+    ) {
       getUserProfile(credentials.accessToken);
     }
   }, [credentials?.accessToken]);
