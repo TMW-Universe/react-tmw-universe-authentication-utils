@@ -8,7 +8,7 @@ import { useTmwuAuthProvider } from "./tmwu-auth.provider";
 import { Account } from "../models/account/account.model";
 
 type Type = {
-  setCredentials: (credentials: Credentials) => void;
+  setCredentials: (credentials: Credentials | null) => void;
   credentials: Credentials | null;
   updateProfile: () => Promise<void>;
   setAccessToken: (accessToken: string) => Promise<void>;

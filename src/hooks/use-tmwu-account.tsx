@@ -1,3 +1,4 @@
+import { Account } from "../models/account/account.model";
 import { useTmwuCredentials } from "./use-tmwu-credentials";
 
 export function useTwmuAccount() {
@@ -6,5 +7,9 @@ export function useTwmuAccount() {
   // Not authenticated
   if (!account.isAuthenticated || !account.account) throw new Error();
 
-  return account;
+  return account as {
+    isAuthenticated: true;
+    account: Account;
+    accessToken: string;
+  };
 }

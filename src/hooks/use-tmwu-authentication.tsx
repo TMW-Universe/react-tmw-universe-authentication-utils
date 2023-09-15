@@ -6,7 +6,7 @@ import { useTmwuCredentialsProvider } from "../providers/tmwu-credentials.provid
 
 export function useTmwuAuthentication() {
   const { authClient, loginOptions } = useTmwuAuthProvider();
-  const { setAccessToken } = useTmwuCredentialsProvider();
+  const { setAccessToken, setCredentials } = useTmwuCredentialsProvider();
 
   const [isAuthPopupOpen, setAuthPopupOpen] = useState(false);
 
@@ -85,6 +85,7 @@ export function useTmwuAuthentication() {
 
   const logout = () => {
     localStorage.removeItem("tmwuAccessToken");
+    setCredentials(null);
   };
 
   return {
