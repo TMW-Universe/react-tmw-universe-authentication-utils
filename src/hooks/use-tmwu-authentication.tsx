@@ -2,9 +2,11 @@ import { AES, enc } from "crypto-js";
 import { useTmwuAuthProvider } from "../providers/tmwu-auth.provider";
 import { LoginOptions } from "../types/auth/login-options.type";
 import { useState } from "react";
+import { useTmwuCredentialsProvider } from "../providers/tmwu-credentials.provider";
 
 export function useTmwuAuthentication() {
   const { authClient, loginOptions } = useTmwuAuthProvider();
+  const { setAccessToken } = useTmwuCredentialsProvider();
 
   const [isAuthPopupOpen, setAuthPopupOpen] = useState(false);
 
@@ -38,6 +40,7 @@ export function useTmwuAuthentication() {
   }
 
   const login = async (options?: LoginOptions) => {
+    if (isAuthPopupOpen) return;
     setAuthPopupOpen(true);
     const key = generateKey(128);
     const url = `${authClient}/third-party/authenticate/v1/${window.location.host}?encKey=${key}`;
@@ -72,6 +75,10 @@ export function useTmwuAuthentication() {
         }
       }, 500);
     });
+
+    // Update provider accessToken
+    if (res) await setAccessToken(res);
+
     setAuthPopupOpen(false);
     return res;
   };

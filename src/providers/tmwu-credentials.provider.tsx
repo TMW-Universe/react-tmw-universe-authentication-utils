@@ -11,6 +11,7 @@ type Type = {
   setCredentials: (credentials: Credentials) => void;
   credentials: Credentials | null;
   updateProfile: () => Promise<void>;
+  setAccessToken: (accessToken: string) => Promise<void>;
 };
 
 const TmwuCredentialsContext = createContext<Type | null>(null);
@@ -69,16 +70,6 @@ export default function TmwuCredentialsProvider({ children }: Props) {
     if (storedCreds) getUserProfile(storedCreds.accessToken);
     // Else: no user is signed in, so set null credentials into credentials provider
     else setCredentials(null);
-
-    addEventListener("storage", (e) => {
-      const readToken = localStorage.getItem("tmwuAccessToken");
-      console.log({ readToken, current: credentials?.accessToken });
-      if (readToken !== credentials?.accessToken) {
-        if (readToken) {
-          getUserProfile(readToken);
-        } else setCredentials(null); // <- Logout if no token is stored
-      }
-    });
   }, []);
 
   // Try to update profile every time accessToken changes
@@ -87,6 +78,10 @@ export default function TmwuCredentialsProvider({ children }: Props) {
       getUserProfile(credentials.accessToken);
     }
   }, [credentials?.accessToken]);
+
+  const setAccessToken = async (accessToken: string) => {
+    await getUserProfile(accessToken);
+  };
 
   // If credentials is undefined, it means the library is fetching user profile (if there is signed in user)
   if (credentials === undefined) return null;
@@ -100,6 +95,7 @@ export default function TmwuCredentialsProvider({ children }: Props) {
           if (credentials?.accessToken)
             await getUserProfile(credentials.accessToken);
         },
+        setAccessToken,
       }}
     >
       {children}
