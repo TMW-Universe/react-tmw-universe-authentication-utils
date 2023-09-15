@@ -4,7 +4,7 @@ import { LoginOptions } from "../types/auth/login-options.type";
 import { useState } from "react";
 
 export function useTmwuAuthentication() {
-  const { authHost: host, loginOptions } = useTmwuAuthProvider();
+  const { authClient, loginOptions } = useTmwuAuthProvider();
 
   const [isAuthPopupOpen, setAuthPopupOpen] = useState(false);
 
@@ -40,7 +40,7 @@ export function useTmwuAuthentication() {
   const login = async (options?: LoginOptions) => {
     setAuthPopupOpen(true);
     const key = generateKey(128);
-    const url = `${host}/third-party/authenticate/v1/${window.location.host}?encKey=${key}`;
+    const url = `${authClient}/third-party/authenticate/v1/${window.location.host}?encKey=${key}`;
     const authPopup =
       (loginOptions?.mode ?? options?.mode) === "newtab"
         ? window.open(url, "_blank")

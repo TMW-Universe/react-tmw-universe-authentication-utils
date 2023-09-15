@@ -41,15 +41,20 @@ export default function TmwuCredentialsProvider({ children }: Props) {
     const token = parseJwt<Jwt>(accessToken);
 
     if (credentials?.account?.id === token.userId) return;
-    const result = await axios.get<Account>(`${authHost}/api/users/profile`, {
-      headers: { Authentication: `Bearer ${accessToken}` },
-    });
+    try {
+      const result = await axios.get<Account>(`${authHost}/api/users/profile`, {
+        headers: { Authentication: `Bearer ${accessToken}` },
+      });
 
-    // Update credentials
-    setCredentials({
-      ...(credentials ?? { accessToken }),
-      account: result.data,
-    });
+      // Update credentials
+      setCredentials({
+        ...(credentials ?? { accessToken }),
+        account: result.data,
+      });
+    } catch (e) {
+      // Fetching failed
+      setCredentials(undefined);
+    }
   };
 
   // Credentials provider state
