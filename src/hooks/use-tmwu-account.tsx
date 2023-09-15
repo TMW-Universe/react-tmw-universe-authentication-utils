@@ -1,18 +1,10 @@
-import { useTmwuCredentialsProvider } from "../providers/tmwu-credentials.provider";
+import { useTmwuCredentials } from "./use-tmwu-credentials";
 
-export function useTmwuAccount() {
-  const { credentials } = useTmwuCredentialsProvider();
+export function useTwmuAccount() {
+  const account = useTmwuCredentials();
 
-  const isAuthenticated = credentials !== null;
+  // Not authenticated
+  if (!account.isAuthenticated) throw new Error();
 
-  if (isAuthenticated)
-    return {
-      isAuthenticated,
-      account: credentials.account,
-      accessToken: credentials.accessToken,
-    } as const;
-
-  return {
-    isAuthenticated,
-  } as const;
+  return account;
 }

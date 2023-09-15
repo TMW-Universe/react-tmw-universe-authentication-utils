@@ -10,7 +10,7 @@ export type TmwuAuthProviderType = TmwuAuthOptions & {
 };
 
 type TmwuAuthOptions = {
-  host: string;
+  authHost: string;
 };
 
 type Props = {

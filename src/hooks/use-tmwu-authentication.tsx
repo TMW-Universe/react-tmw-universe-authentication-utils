@@ -4,7 +4,7 @@ import { LoginOptions } from "../types/auth/login-options.type";
 import { useState } from "react";
 
 export function useTmwuAuthentication() {
-  const { host, loginOptions } = useTmwuAuthProvider();
+  const { authHost: host, loginOptions } = useTmwuAuthProvider();
 
   const [isAuthPopupOpen, setAuthPopupOpen] = useState(false);
 

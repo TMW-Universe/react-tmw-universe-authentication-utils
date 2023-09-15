@@ -1,4 +1,4 @@
-export function parseJwt(token: string) {
+export function parseJwt<T extends Object>(token: string) {
   var base64Url = token.split(".")[1];
   var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
   var jsonPayload = decodeURIComponent(
@@ -11,5 +11,5 @@ export function parseJwt(token: string) {
       .join("")
   );
 
-  return JSON.parse(jsonPayload);
+  return JSON.parse(jsonPayload) as T;
 }
