@@ -4,7 +4,7 @@ export function useTwmuAccount() {
   const account = useTmwuCredentials();
 
   // Not authenticated
-  if (!account.isAuthenticated) throw new Error();
+  if (!account.isAuthenticated || !account.account) throw new Error();
 
   return account;
 }
