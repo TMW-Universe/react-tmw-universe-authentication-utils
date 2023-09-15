@@ -43,7 +43,7 @@ export default function TmwuCredentialsProvider({ children }: Props) {
     if (credentials?.account?.id === token.userId) return;
     try {
       const result = await axios.get<Account>(`${authHost}/api/users/profile`, {
-        headers: { Authentication: `Bearer ${accessToken}` },
+        headers: { authorization: `Bearer ${accessToken}` },
       });
 
       // Update credentials
