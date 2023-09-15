@@ -71,7 +71,7 @@ export default function TmwuCredentialsProvider({ children }: Props) {
     else setCredentials(null);
 
     addEventListener("storage", (e) => {
-      const readToken = e.storageArea?.getItem("tmwuAccessToken");
+      const readToken = localStorage.getItem("tmwuAccessToken");
       console.log({ readToken, current: credentials?.accessToken });
       if (readToken !== credentials?.accessToken) {
         if (readToken) {
