@@ -8,7 +8,7 @@ export function useTmwuCredentials() {
   if (isAuthenticated)
     return {
       isAuthenticated,
-      account: credentials.account,
+      account: credentials.account!,
       accessToken: credentials.accessToken,
     } as const;
 
