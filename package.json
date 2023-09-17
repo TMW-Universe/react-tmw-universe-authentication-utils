@@ -19,7 +19,7 @@
     "dist/**"
   ],
   "dependencies": {
-    "@tmw-universe/tmw-universe-types": "^1.0.3",
+    "@tmw-universe/tmw-universe-types": "^1.0.4",
     "@types/crypto-js": "^4.1.2",
     "@types/node": "^20.4.4",
     "@types/react": "^18.2.15",
