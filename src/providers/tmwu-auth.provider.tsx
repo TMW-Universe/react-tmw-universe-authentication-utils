@@ -4,6 +4,7 @@ import React from "react";
 import AuthenticationRoute from "../components/authentication-route";
 import { LoginOptions } from "../types/auth/login-options.type";
 import TmwuCredentialsProvider from "./tmwu-credentials.provider";
+import { Account } from "@tmw-universe/tmw-universe-types";
 
 export type TmwuAuthProviderType = TmwuAuthOptions & {
   loginOptions?: LoginOptions;
@@ -12,6 +13,7 @@ export type TmwuAuthProviderType = TmwuAuthOptions & {
 type TmwuAuthOptions = {
   authHost: string;
   authClient: string;
+  onAccountChange?: (account?: Account) => void;
 };
 
 type Props = {

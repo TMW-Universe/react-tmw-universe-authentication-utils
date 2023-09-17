@@ -20,7 +20,7 @@ type Props = {
 };
 
 export default function TmwuCredentialsProvider({ children }: Props) {
-  const { authHost } = useTmwuAuthProvider();
+  const { authHost, onAccountChange } = useTmwuAuthProvider();
 
   // Read accessToken from storage
   const readCredentialsToken = () => {
@@ -84,9 +84,14 @@ export default function TmwuCredentialsProvider({ children }: Props) {
   };
 
   // Credentials provider state
-  const [credentials, setCredentials] = useState<
+  const [credentials, setCredentialsState] = useState<
     Credentials | null | undefined
   >(undefined);
+
+  const setCredentials = (creds: Credentials | null | undefined) => {
+    if (onAccountChange) onAccountChange(creds?.account);
+    setCredentialsState(creds);
+  };
 
   // Update credentials on storage change event and on first load
   useEffect(() => {
