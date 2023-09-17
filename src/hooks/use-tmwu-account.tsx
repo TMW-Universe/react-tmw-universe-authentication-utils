@@ -1,4 +1,4 @@
-import { Account } from "../models/account/account.model";
+import { Account } from "@tmw-universe/tmw-universe-types";
 import { useTmwuCredentials } from "./use-tmwu-credentials";
 
 export function useTwmuAccount() {

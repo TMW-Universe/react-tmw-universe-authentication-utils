@@ -1,12 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { Credentials } from "../types/credentials/credentials.type";
 import React from "react";
 import { parseJwt } from "../utils/jwt/parse-jwt.util";
-import { Jwt } from "../types/credentials/jwt.type";
 import axios from "axios";
 import { useTmwuAuthProvider } from "./tmwu-auth.provider";
-import { Account } from "../models/account/account.model";
 import { LOCAL_STORAGE_CONSTANTS } from "../constants/local-storage.constants";
+import { Account, Credentials, Jwt } from "@tmw-universe/tmw-universe-types";
 
 type Type = {
   setCredentials: (credentials: Credentials | null) => void;

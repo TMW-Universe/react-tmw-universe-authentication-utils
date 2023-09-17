@@ -1,6 +1,5 @@
 // Index
 export * from "./providers/tmwu-auth.provider";
-export * from "./models/account/account.model";
 
 // Components
 export * from "./components/authenticated";
