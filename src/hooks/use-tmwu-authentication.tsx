@@ -3,6 +3,7 @@ import { useTmwuAuthProvider } from "../providers/tmwu-auth.provider";
 import { LoginOptions } from "../types/auth/login-options.type";
 import { useState } from "react";
 import { useTmwuCredentialsProvider } from "../providers/tmwu-credentials.provider";
+import { LOCAL_STORAGE_CONSTANTS } from "../constants/local-storage.constants";
 
 export function useTmwuAuthentication() {
   const { authClient, loginOptions } = useTmwuAuthProvider();
@@ -66,7 +67,7 @@ export function useTmwuAuthentication() {
             const token = AES.decrypt(hexToString(rawToken), key).toString(
               enc.Utf8
             );
-            localStorage.setItem("tmwuAccessToken", token);
+            localStorage.setItem(LOCAL_STORAGE_CONSTANTS.accessToken, token);
             resolve(token);
           }
         } catch (e) {
@@ -84,7 +85,8 @@ export function useTmwuAuthentication() {
   };
 
   const logout = () => {
-    localStorage.removeItem("tmwuAccessToken");
+    localStorage.removeItem(LOCAL_STORAGE_CONSTANTS.accessToken);
+    localStorage.removeItem(LOCAL_STORAGE_CONSTANTS.profile);
     setCredentials(null);
   };
 

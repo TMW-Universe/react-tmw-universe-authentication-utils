@@ -6,6 +6,7 @@ import { Jwt } from "../types/credentials/jwt.type";
 import axios from "axios";
 import { useTmwuAuthProvider } from "./tmwu-auth.provider";
 import { Account } from "../models/account/account.model";
+import { LOCAL_STORAGE_CONSTANTS } from "../constants/local-storage.constants";
 
 type Type = {
   setCredentials: (credentials: Credentials | null) => void;
@@ -25,7 +26,9 @@ export default function TmwuCredentialsProvider({ children }: Props) {
 
   // Read accessToken from storage
   const readCredentialsToken = () => {
-    const accessToken = localStorage.getItem("tmwuAccessToken");
+    const accessToken = localStorage.getItem(
+      LOCAL_STORAGE_CONSTANTS.accessToken
+    );
     if (!accessToken) return null;
 
     try {
@@ -47,6 +50,12 @@ export default function TmwuCredentialsProvider({ children }: Props) {
         headers: { authorization: `Bearer ${accessToken}` },
       });
 
+      // Save profile into localStorage (cache profile)
+      localStorage.setItem(
+        LOCAL_STORAGE_CONSTANTS.profile,
+        JSON.stringify(result.data)
+      );
+
       // Update credentials
       setCredentials({
         ...(credentials ?? { accessToken }),
@@ -54,7 +63,25 @@ export default function TmwuCredentialsProvider({ children }: Props) {
       });
     } catch (e) {
       // Fetching failed
-      setCredentials(undefined);
+      // Try to load cache info
+      try {
+        const profileItem = localStorage.getItem(
+          LOCAL_STORAGE_CONSTANTS.profile
+        );
+        if (!profileItem) throw new Error("No profile cache");
+
+        const account = JSON.parse(profileItem) as Account;
+
+        // Set credentials using cache data
+        setCredentials({
+          ...(credentials ?? { accessToken }),
+          account,
+        });
+      } catch (e) {
+        localStorage.removeItem(LOCAL_STORAGE_CONSTANTS.accessToken);
+        localStorage.removeItem(LOCAL_STORAGE_CONSTANTS.profile);
+        setCredentials(undefined);
+      }
     }
   };
 
