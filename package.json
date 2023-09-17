@@ -1,6 +1,6 @@
 {
   "name": "@tmw-universe/react-tmw-universe-authentication-utils",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "React package that provides authentication utilities for TMW Universe projects",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -19,7 +19,7 @@
     "dist/**"
   ],
   "dependencies": {
-    "@tmw-universe/tmw-universe-types": "^1.0.1",
+    "@tmw-universe/tmw-universe-types": "^1.0.3",
     "@types/crypto-js": "^4.1.2",
     "@types/node": "^20.4.4",
     "@types/react": "^18.2.15",
