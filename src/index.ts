@@ -8,3 +8,6 @@ export * from "./components/not-authenticated";
 // Hooks
 export * from "./hooks/use-tmwu-authentication";
 export * from "./hooks/use-tmwu-account";
+
+// Utils->profile
+export * from "./utils/profile";
