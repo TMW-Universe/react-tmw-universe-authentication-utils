@@ -41,7 +41,7 @@ export default function TmwuAuthProvider({ children, options }: Props) {
         "accessToken"
       )}; SameSite=Lax; secure; expires=${format(
         addSeconds(new Date(), 30),
-        "dd/MM/yyyy HH:mm:ss"
+        "eee, dd MMM yyyy HH:mm:ss 'GMT'"
       )}; path=/`;
       window.close();
     }
