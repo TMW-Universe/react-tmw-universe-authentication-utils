@@ -12,6 +12,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@types/blueimp-md5": "^2.18.1",
     "typescript": "^5.1.6"
   },
   "files": [
