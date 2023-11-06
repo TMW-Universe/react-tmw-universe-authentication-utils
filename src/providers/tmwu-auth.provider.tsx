@@ -39,7 +39,7 @@ export default function TmwuAuthProvider({ children, options }: Props) {
       const params = new URLSearchParams(window.location.search);
       document.cookie = `transferAccessToken=${params.get(
         "accessToken"
-      )}; SameSite=None; expires=${format(
+      )}; SameSite=Lax; expires=${format(
         addSeconds(new Date(), 30),
         "dd/MM/yyyy HH:mm:ss"
       )}; path=/`;
