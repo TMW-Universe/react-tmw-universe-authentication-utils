@@ -43,7 +43,7 @@ export default function TmwuAuthProvider({ children, options }: Props) {
         addSeconds(new Date(), 30),
         "dd/MM/yyyy HH:mm:ss"
       )}; path=/`;
-      window.close();
+      //window.close();
     }
   }, [isAuthenticationRoute]);
 
