@@ -5,6 +5,7 @@ import axios from "axios";
 import { useTmwuAuthProvider } from "./tmwu-auth.provider";
 import { LOCAL_STORAGE_CONSTANTS } from "../constants/local-storage.constants";
 import { Account, Credentials, Jwt } from "@tmw-universe/tmw-universe-types";
+import { accountSchema } from "@tmw-universe/tmw-universe-types/dist/schemas/auth/account/account.schema";
 
 type Type = {
   setCredentials: (credentials: Credentials | null) => void;
@@ -48,16 +49,19 @@ export default function TmwuCredentialsProvider({ children }: Props) {
         headers: { authorization: `Bearer ${accessToken}` },
       });
 
+      const { preferences, ...rawAccount } = result.data;
+      const account = accountSchema.cast(rawAccount);
+
       // Save profile into localStorage (cache profile)
       localStorage.setItem(
         LOCAL_STORAGE_CONSTANTS.profile,
-        JSON.stringify(result.data)
+        JSON.stringify({ ...account, preferences })
       );
 
       // Update credentials
       setCredentials({
         ...(credentials ?? { accessToken }),
-        account: result.data,
+        account: { ...account, preferences },
       });
     } catch (e) {
       // Fetching failed
@@ -68,7 +72,7 @@ export default function TmwuCredentialsProvider({ children }: Props) {
         );
         if (!profileItem) throw new Error("No profile cache");
 
-        const account = JSON.parse(profileItem) as Account;
+        const account = accountSchema.cast(JSON.parse(profileItem));
 
         // Set credentials using cache data
         setCredentials({
