@@ -10,9 +10,11 @@ import { accountSchema } from "@tmw-universe/tmw-universe-types/dist/schemas/aut
 type Type = {
   setCredentials: (credentials: Credentials | null) => void;
   credentials: Credentials | null;
-  updateProfile: () => Promise<void>;
+  updateProfile: (options?: GetUserProfileOptions) => Promise<void>;
   setAccessToken: (accessToken: string) => Promise<void>;
 };
+
+type GetUserProfileOptions = { forceRefetch?: boolean };
 
 const TmwuCredentialsContext = createContext<Type | null>(null);
 
@@ -40,10 +42,14 @@ export default function TmwuCredentialsProvider({ children }: Props) {
   };
 
   // Fetch user profile info
-  const getUserProfile = async (accessToken: string) => {
+  const getUserProfile = async (
+    accessToken: string,
+    options: GetUserProfileOptions = {}
+  ) => {
     const token = parseJwt<Jwt>(accessToken);
 
-    if (credentials?.account?.id === token.userId) return;
+    if (!options.forceRefetch && credentials?.account?.id === token.userId)
+      return;
     try {
       const result = await axios.get<Account>(`${authHost}/api/users/profile`, {
         headers: { authorization: `Bearer ${accessToken}` },
@@ -128,9 +134,9 @@ export default function TmwuCredentialsProvider({ children }: Props) {
       value={{
         credentials,
         setCredentials,
-        updateProfile: async () => {
+        updateProfile: async (options: GetUserProfileOptions = {}) => {
           if (credentials?.accessToken)
-            await getUserProfile(credentials.accessToken);
+            await getUserProfile(credentials.accessToken, options);
         },
         setAccessToken,
       }}

@@ -10,7 +10,7 @@ export function useTmwuCredentials() {
       isAuthenticated,
       account: credentials.account!,
       accessToken: credentials.accessToken,
-      refetchUserAccount: updateProfile,
+      refetchUserAccount: async () => updateProfile({ forceRefetch: true }),
     } as const;
 
   return {
