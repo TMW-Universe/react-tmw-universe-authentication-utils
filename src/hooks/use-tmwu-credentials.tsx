@@ -1,7 +1,7 @@
 import { useTmwuCredentialsProvider } from "../providers/tmwu-credentials.provider";
 
 export function useTmwuCredentials() {
-  const { credentials } = useTmwuCredentialsProvider();
+  const { credentials, updateProfile } = useTmwuCredentialsProvider();
 
   const isAuthenticated = credentials !== null;
 
@@ -10,6 +10,7 @@ export function useTmwuCredentials() {
       isAuthenticated,
       account: credentials.account!,
       accessToken: credentials.accessToken,
+      refetchUserAccount: updateProfile,
     } as const;
 
   return {
